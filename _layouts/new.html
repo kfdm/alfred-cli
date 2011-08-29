@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+{% if page.base %}
+		<base href="{{ page.base }}">
+{% endif %}
+		<title>{{ page.title }}</title>
+		<meta name="robots" content="noarchive" />
+		<link href="{{ site.url }}/atom.xml" rel="alternate" title="{{ site.title }}" type="application/atom+xml" />
+		<link type="text/css" href="/static/new.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header id="head" class="{{page.color}}">
+			<div>
+				<h1><img src="/static/banner.png" alt="{{ site.title }}" /></h1>
+				<span id="social">
+					<a title="LinkedIn" href="http://www.linkedin.com/in/PaulTraylor"><img src="/static/linkedin.png" /></a>
+					<a title="GitHub" href="http://github.com/kfdm/"><img src="/static/github.png" /></a>
+					<a title="Twitter" href="http://twitter.com/kfdm/"><img src="/static/twitter.png" /></a>
+				</span>
+			</div>
+			<nav>
+				<ul id="tab-nav" style="float:right">
+					<li class="one"><a href="/index.html">About</a></li>
+					<li class="two"><a href="/experience.html">Experience</a></li>
+					<li class="three"><a href="/current.html">Curent Projects</a></li>
+					<li class="four"><a href="/past.html">Past Projects</a></li>
+					<li class="five"><a href="/future.html">Future Projects</a></li>
+				</ul>
+			</nav>
+		</header>
+		<section id="content" class="{{page.tab}} {{page.color}}">
+{{ content }}
+		</section>
+		<footer class="{{page.color}}">Copyright &copy; Paul Traylor 2004-2011</footer>
+	</body>
+</html>
