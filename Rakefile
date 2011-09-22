@@ -1,27 +1,6 @@
-# curl -v https://api.github.com/repos/kfdm/alfred/downloads
+$ALFRED_DIR = `defaults read com.alfredapp.Alfred alfred.sync.folder`.chomp
 
-$JEKYLL_HEADER = <<-EOF
----
-layout: main
----
-EOF
+puts "Current Alfred Dir: #{$ALFRED_DIR}"
 
-task :default do
-	require 'net/http'
-	require 'net/https'
-	require 'openssl'
-	require 'json'
-	https = Net::HTTP.new('api.github.com', 443)
-	https.verify_mode = OpenSSL::SSL::VERIFY_NONE
-	https.use_ssl = true
-	req = Net::HTTP::Get.new('/repos/kfdm/alfred/downloads')
-	result = JSON.parse( https.request(req).body )
-	File.open('gh-pages/index.md','w') do |f|
-		f << $JEKYLL_HEADER
-		result.each do |download|
-			f << "## #{download['name']}\n"
-			f << "#{download['description']} "
-			f << "[Download](#{download['html_url']})\n"
-		end
-	end
-end
+# From http://www.madcowley.com/madcode/2010/12/running-migrations-in-sinatra/
+Dir.glob("#{File.dirname(__FILE__)}/tasks/*.rake").each { |r| import r }
