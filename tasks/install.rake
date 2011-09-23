@@ -1,9 +1,14 @@
 namespace :install do
-	Dir.glob('extensions/*/*').each do |extension|
-		@SHORTNAME = extension.gsub("extensions/",'')
+	Dir.glob("#{$LOCAL_DIR}/extensions/*/*").each do |extension|
+		@SHORTNAME = extension.gsub("#{$LOCAL_DIR}/extensions/",'')
 		desc "Install #{@SHORTNAME}"
 		task @SHORTNAME do |t|
-			puts "Attempting to install #{t}"
+			@FOLDER = t.name.gsub("install:", "")
+			puts "Attempting to install #{@FOLDER}"
+			@LOCAL =  "#{$LOCAL_DIR}/extensions/#{@FOLDER}"
+			@REMOTE = File.dirname "#{$ALFRED_DIR}/extensions/#{@FOLDER}"
+
+			sh "cp -rv '#{@LOCAL}' '#{@REMOTE}'"
 		end
 	end
 end
