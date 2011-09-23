@@ -1,4 +1,5 @@
 $ALFRED_DIR = `defaults read com.alfredapp.Alfred alfred.sync.folder`.chomp
+$LOCAL_DIR = File.dirname(__FILE__)
 
 puts "Current Alfred Dir: #{$ALFRED_DIR}"
 
