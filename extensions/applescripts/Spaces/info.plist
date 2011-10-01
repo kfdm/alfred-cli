@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>action</key>
+	<false/>
+	<key>background</key>
+	<true/>
+	<key>category</key>
+	<string>APPLESCRIPTS</string>
+	<key>command</key>
+	<string>-- Taken from http://www.macosxautomation.com/applescript/sbrt/sbrt-06.html
+on replace_chars(this_text, search_string, replacement_string)	set AppleScript's text item delimiters to the search_string	set the item_list to every text item of this_text	set AppleScript's text item delimiters to the replacement_string	set this_text to the item_list as string	set AppleScript's text item delimiters to ""	return this_textend replace_charstell application "System Events" to set clip to (the clipboard as text)
+-- Replace tab character with 4 Japanese space charactersset clip to replace_chars(clip, "	", "　　　　")
+-- Replace regular space with Japanese spaceset clip to replace_chars(clip, " ", "　")tell application "System Events" to set the clipboard to (clip as text)</string>
+	<key>keyword</key>
+	<string>spaces</string>
+	<key>subtitle</key>
+	<string>Convert spaces and tabs to Japanese spaces</string>
+	<key>title</key>
+	<string>Convert Spaces</string>
+</dict>
+</plist>
