@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>action</key>
+	<false/>
+	<key>background</key>
+	<true/>
+	<key>category</key>
+	<string>APPLESCRIPTS</string>
+	<key>command</key>
+	<string>on alfred_script(q)	tell application "The Hit List"		tell inbox to make new task with properties {timing task:q}	end tellend alfred_script</string>
+	<key>keyword</key>
+	<string>thl</string>
+	<key>subtitle</key>
+	<string>Add tasks to THL</string>
+	<key>title</key>
+	<string>The Hit List</string>
+</dict>
+</plist>
