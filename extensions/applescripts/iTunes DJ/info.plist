@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>action</key>
+	<false/>
+	<key>background</key>
+	<true/>
+	<key>category</key>
+	<string>APPLESCRIPTS</string>
+	<key>command</key>
+	<string>tell application "iTunes" to play playlist "iTunes DJ"</string>
+	<key>keyword</key>
+	<string>dj</string>
+	<key>subtitle</key>
+	<string>Play iTunes DJ</string>
+	<key>title</key>
+	<string>iTunes DJ</string>
+</dict>
+</plist>
