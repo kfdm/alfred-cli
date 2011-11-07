@@ -37,3 +37,11 @@ namespace :import do
 		end
 	end
 end
+
+desc "Re-import extensions into repository"
+task :sync do
+	Dir.glob("#{$LOCAL_DIR}/extensions/*/*").each do |extension|
+		@SHORTNAME = extension.gsub("#{$LOCAL_DIR}/extensions/",'')
+		Rake::Task["import:#{@SHORTNAME}"].invoke
+	end
+end
