@@ -29,7 +29,7 @@ namespace :import do
 		desc "Import #{@SHORTNAME}"
 		task @SHORTNAME do |t|
 			@FOLDER = t.name.gsub("import:", "")
-			puts "Attempting to import #{@FOLDER}"
+			puts "Attempting to import #{@FOLDER}".green
 			@LOCAL = File.dirname "#{$LOCAL_DIR}/extensions/#{@FOLDER}"
 			@REMOTE = extension
 
