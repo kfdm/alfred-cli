@@ -9,9 +9,13 @@
 	<key>category</key>
 	<string>APPLESCRIPTS</string>
 	<key>command</key>
-	<string>on notify(msg)	try		tell application "Growl"			notify with name "Extension Output" ¬				application name "Alfred" ¬				title "Remove Distractions" ¬				icon of application "iTunes" ¬				description msg		end tell	on error		display dialog msg buttons {"Thanks"} default button 1 giving up after 15	end tryend notifyon find_playlist(playlistName)	tell application "iTunes"		if (not (exists playlist playlistName)) then			set new_playlist to make new playlist with properties {name:playlistName}		else			set new_playlist to playlist playlistName		end if		delete tracks in new_playlist		return new_playlist	end tellend find_playlisttell application "iTunes"	set the_playlist to playlist "Search"	set playlist_lyrics to my find_playlist("Lyrics")	set playlist_no_lyrics to my find_playlist("No Lyrics")		repeat with this_track in (every track of the_playlist)		with timeout of 300 seconds			if class of this_track is file track then				tell this_track					try						if (lyrics is not "") then							duplicate this_track to playlist_lyrics						else							duplicate this_track to playlist_no_lyrics						end if					end try				end tell			end if		end timeout	end repeatend tellnotify("Finished Processing Tracks")</string>
+	<string>on notify(msg)	try		tell application id "com.Growl.GrowlHelperApp"			notify with name "Extension Output" ¬				application name "Alfred" ¬				title "Remove Distractions" ¬				icon of application "iTunes" ¬				description msg		end tell	on error		display dialog msg buttons {"Thanks"} default button 1 giving up after 15	end tryend notifyon find_playlist(playlistName)	tell application "iTunes"		if (not (exists playlist playlistName)) then			set new_playlist to make new playlist with properties {name:playlistName}		else			set new_playlist to playlist playlistName		end if		delete tracks in new_playlist		return new_playlist	end tellend find_playlisttell application "iTunes"	set the_playlist to playlist "Search"	set playlist_lyrics to my find_playlist("Lyrics")	set playlist_no_lyrics to my find_playlist("No Lyrics")		repeat with this_track in (every track of the_playlist)		with timeout of 300 seconds			if class of this_track is file track then				tell this_track					try						if (lyrics is not "") then							duplicate this_track to playlist_lyrics						else							duplicate this_track to playlist_no_lyrics						end if					end try				end tell			end if		end timeout	end repeatend tellnotify("Finished Processing Tracks")</string>
+	<key>disabled</key>
+	<false/>
 	<key>keyword</key>
 	<string>lyrics</string>
+	<key>parameter</key>
+	<integer>0</integer>
 	<key>subtitle</key>
 	<string>Sort lyrics in iTunes</string>
 	<key>title</key>
