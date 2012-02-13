@@ -1,11 +1,28 @@
 ---
 layout: main
+section: current
 ---
-## Spaces.alfredextension
-Convert spaces and tabs to Japanese spaces for pasting in forms that ignore whitespace [Download](https://github.com/downloads/kfdm/alfred/Spaces.alfredextension)
-## English.alfredextension
-Switch the system language to English [Download](https://github.com/downloads/kfdm/alfred/English.alfredextension)
-## Japanese.alfredextension
-Switch the system to use Japanese [Download](https://github.com/downloads/kfdm/alfred/Japanese.alfredextension)
-## Sort Lyrics.alfredextension
-Sort lyrics in iTunes [Download](https://github.com/downloads/kfdm/alfred/Sort Lyrics.alfredextension)
+## [\{scripts/English\}][english]
+Switch the system language to English
+[english]: http://kfdm.github.com/alfred/downloads/scripts/English.alfredextension
+
+## [\{scripts/Japanese\}][japanese]
+Switch the system to use Japanese
+[japanese]: http://kfdm.github.com/alfred/downloads/scripts/Japanese.alfredextension
+
+## [\{applescripts/Clear\}][clear]
+Remove all distractions
+[clear]: http://kfdm.github.com/alfred/downloads/applescripts/Clear.alfredextension
+
+## [\{applescripts/iTunes DJ\}][itunes_dj]
+Play iTunes DJ
+[itunes_dj]: http://kfdm.github.com/alfred/downloads/applescripts/iTunes DJ.alfredextension
+
+## [\{applescripts/Sort Lyrics\}][sort_lyrics]
+Sort lyrics in iTunes
+[sort_lyrics]: http://kfdm.github.com/alfred/downloads/applescripts/Sort Lyrics.alfredextension
+
+## [\{applescripts/TheHitList\}][thehitlist]
+Add tasks to THL
+[thehitlist]: http://kfdm.github.com/alfred/downloads/applescripts/TheHitList.alfredextension
+
