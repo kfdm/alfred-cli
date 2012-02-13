@@ -21,6 +21,11 @@ task :generate do
 				@tag = extension.gsub(' ', '_').downcase
 
 				f << "## [\\\{#{type}/#{extension}\\\}][#{@tag}]\n"
+
+				if data['image'] then
+					f << "![#{type}/#{extension}](#{$image_url}/#{data['image']})\n\n"
+				end
+
 				f << "#{@description}"
 				f << "[#{@tag}]: #{@download}\n\n"
 			end

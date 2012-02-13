@@ -5,6 +5,7 @@ $LOCAL_DIR = File.dirname(__FILE__)
 
 $appcast_url = 'http://kfdm.github.com/alfred/appcast'
 $download_url = 'http://kfdm.github.com/alfred/downloads'
+$image_url = 'http://kfdm.github.com/alfred/images'
 
 print "Current Alfred Dir :  ".green.bold
 puts $ALFRED_DIR

@@ -2,8 +2,10 @@
 scripts:
   English:
     version: 1.0
+    image: scripts/english.png
   Japanese:
     version: 1.0
+    image: scripts/japanese.png
 applescripts:
   Clear:
     version: 1.0
@@ -11,5 +13,6 @@ applescripts:
     version: 1.0
   Sort Lyrics:
     version: 1.0
+    image: applescripts/sort_lyrics.png
   TheHitList:
     version: 1.0
