@@ -39,7 +39,7 @@ task :build do |t|
                 </update>
             EOF
 
-            @zip_path = "#{$LOCAL_DIR}/gh-pages/download/#{type}/#{extension}.alfredextension"
+            @zip_path = "#{$LOCAL_DIR}/gh-pages/downloads/#{type}/#{extension}.alfredextension"
             @ext_path = "#{$LOCAL_DIR}/extensions/#{type}/#{extension}"
             puts "\tPackage Zip: ".magenta.bold
             FileUtils.makedirs File.dirname @zip_path
