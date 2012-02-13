@@ -5,8 +5,6 @@ require "psych"
 
 
 $YAML = "#{$LOCAL_DIR}/alfred.yml"
-$appcast_url = 'https://kfdm.github.com/alfred/appcast'
-$download_url = 'https://kfdm.github.com/alfred/downloads'
 
 @yaml = Psych.load File.new( $YAML ).read
 

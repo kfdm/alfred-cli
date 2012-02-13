@@ -3,6 +3,9 @@ require 'colored'
 $ALFRED_DIR = `defaults read com.alfredapp.Alfred alfred.sync.folder`.chomp
 $LOCAL_DIR = File.dirname(__FILE__)
 
+$appcast_url = 'https://kfdm.github.com/alfred/appcast'
+$download_url = 'https://kfdm.github.com/alfred/downloads'
+
 print "Current Alfred Dir :  ".green.bold
 puts $ALFRED_DIR
 
