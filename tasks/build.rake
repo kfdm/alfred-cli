@@ -10,12 +10,14 @@ $YAML = "#{$LOCAL_DIR}/alfred.yml"
 
 desc "Rebuild meta data"
 task :build do |t|
-    puts "Rebuilding Extension Metadata".yellow.bold
     @yaml.each_pair do |type, section|
         section.each_pair do |extension, data|
+            puts "#{extension}.#{type}".bold
+
             @xml_path = "#{$LOCAL_DIR}/extensions/#{type}/#{extension}/update.xml"
             @appcast = "#{$appcast_url}/#{type}/#{extension}.xml"
-            puts "Writing: #{@xml_path}"
+            puts "\tPackage Metadata: ".yellow.bold
+            puts "\t" + @xml_path
             File.new(@xml_path, mode='w').write <<-EOF.gsub(/^ {16}/, '')
                 <?xml version='1.0'?>
                 <update>
@@ -23,16 +25,12 @@ task :build do |t|
                     <url>#{@appcast}</url>
                 </update>
             EOF
-        end
-    end
 
-    puts "Rebuilding Updater Metadata".yellow.bold
-    @yaml.each_pair do |type, section|
-        section.each_pair do |extension, data|
             @xml_path = "#{$LOCAL_DIR}/gh-pages/appcast/#{type}/#{extension}.xml"
             @download = "#{$download_url}/#{type}/#{extension}.alfredextension"
             FileUtils.makedirs File.dirname @xml_path
-            puts "Writing: #{@xml_path}"
+            puts "\tPackage Appcast: ".green.bold
+            puts "\t"+@xml_path
             File.new(@xml_path, mode='w').write <<-EOF.gsub(/^ {16}/, '')
                 <?xml version='1.0'?>
                 <update>
@@ -40,6 +38,15 @@ task :build do |t|
                     <url>#{@download}</url>
                 </update>
             EOF
+
+            @zip_path = "#{$LOCAL_DIR}/gh-pages/download/#{type}/#{extension}.alfredextension"
+            @ext_path = "#{$LOCAL_DIR}/extensions/#{type}/#{extension}"
+            puts "\tPackage Zip: ".magenta.bold
+            FileUtils.makedirs File.dirname @zip_path
+            @cmd = "zip -jr '#{@zip_path}' '#{@ext_path}'"
+            puts @cmd
+            puts `#{@cmd}`
+            puts
         end
     end
 end
