@@ -67,30 +67,12 @@
 	// Get the current directory
 	$cd = getcwd();
 
-	// Split the full path into an array so that the current folder can be removed
-	// returning the parent folder.
-	$path = explode("/", $cd);
-
-	// Count the number of elements in the full path so that the current folder can be removed
-	// and return only the parent
-	$size = count($path);
-	$size--;
-	unset($path[$size]);
-
-	// Glue the full path back together
-	$path = implode("/", $path);
-
-	// Get a list of all items in the folder
-	$dirs = scandir($path);
-	$inc = 0;
-
-	// Remove items that aren't of interest
-	foreach($dirs as $dir):
-
-		if (!is_dir($path."/".$dir) || $dir == "." || $dir == "..") { unset($dirs[$inc]); }
-		$inc++;
-
-	endforeach;
+	// Use glob to find all valid extensions with update.xml
+	// and get the directory they're in
+	$dirs = array();
+	foreach(glob("$cd/../../*/*/update.xml") as $xml) {
+		$dirs[] = dirname(realpath($xml));
+	}
 
 	$updates = false;
 
@@ -105,10 +87,10 @@
 	foreach($dirs as $dir):
 
 		// Check for the existence of update.xml in the path
-		if (file_exists($path."/".$dir."/"."update.xml")) {
+		if (file_exists($dir."/"."update.xml")) {
 
 			// Read the local version and update url for the extension
-			$lxml 	  = simplexml_load_file($path."/".$dir."/"."update.xml");
+			$lxml 	  = simplexml_load_file($dir."/"."update.xml");
 			$lversion = floatval($lxml->version);
 			$lurl 	  = $lxml->url;
 
@@ -132,17 +114,17 @@
 						
 						// Download the remote file via cURL then unzip and remove the
 						// newly downloaded extension
-						exec("curl \"$rurl\" > \"$path/$dir/$file\"");
-						if (file_exists("$path/$dir/$file")) {
+						exec("curl -s '$rurl' > '$dir/$file'");
+						if (file_exists("$dir/$file")) {
 						
 							str_replace("%20", " ", $file);
-							exec("unzip -o  \"$path/$dir/$file\" -d \"$path/$dir/\"");
-							exec("rm \"$path/$dir/$file\"");
+							exec("unzip -q -o  '$dir/$file' -d '$dir/'");
+							exec("rm '$dir/$file'");
 
 						}
 
 						// Inforom the user that the extension was updated
-						$lxml 	  = simplexml_load_file($path."/".$dir."/"."update.xml");
+						$lxml 	  = simplexml_load_file($dir."/"."update.xml");
 						$lversion = floatval($lxml->version);
 						if ($lversion == $rversion) {
 							echo "Updated $dir\r";
