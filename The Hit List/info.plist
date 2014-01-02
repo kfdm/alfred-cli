@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>net.kungfudiscomonkey.alfred.thehitlist</string>
+	<key>connections</key>
+	<dict>
+		<key>5FD3A7E2-2B8A-4B94-BADA-7458AFE01879</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>EBA25B66-BFF8-48F9-82D0-25276AC36D9A</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>88FDB3E4-E9A2-4F4C-A9F2-E9921955601E</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>13DFE745-9307-4940-87DF-A237F72F28B5</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>DD93AA53-36E8-47F7-848A-44C442980782</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>108D20DA-B250-4EB7-B7C1-AE9AA688CA2A</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Paul Traylor</string>
+	<key>description</key>
+	<string></string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>The Hit List</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>thl</string>
+				<key>subtext</key>
+				<string>Add tasks to THL</string>
+				<key>text</key>
+				<string>The Hit List</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>5FD3A7E2-2B8A-4B94-BADA-7458AFE01879</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)	tell application "The Hit List"		tell inbox to make new task with properties {timing task:q}	end tellend alfred_script</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>EBA25B66-BFF8-48F9-82D0-25276AC36D9A</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>today</string>
+				<key>subtext</key>
+				<string>Add tasks to THL for today</string>
+				<key>text</key>
+				<string>The Hit List</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>88FDB3E4-E9A2-4F4C-A9F2-E9921955601E</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)	tell application "The Hit List"		tell inbox to make new task with properties {timing task:q, due date: current date}	end tellend alfred_script</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>13DFE745-9307-4940-87DF-A237F72F28B5</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>tomorrow</string>
+				<key>subtext</key>
+				<string>Add tasks to THL for tomorrow</string>
+				<key>text</key>
+				<string>The Hit List</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>DD93AA53-36E8-47F7-848A-44C442980782</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)	tell application "The Hit List"		tell inbox to make new task with properties {timing task:q, due date: (current date + (1 * days))}	end tellend alfred_script</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>108D20DA-B250-4EB7-B7C1-AE9AA688CA2A</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>108D20DA-B250-4EB7-B7C1-AE9AA688CA2A</key>
+		<dict>
+			<key>ypos</key>
+			<real>250</real>
+		</dict>
+		<key>13DFE745-9307-4940-87DF-A237F72F28B5</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
+		</dict>
+		<key>5FD3A7E2-2B8A-4B94-BADA-7458AFE01879</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>88FDB3E4-E9A2-4F4C-A9F2-E9921955601E</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
+		</dict>
+		<key>DD93AA53-36E8-47F7-848A-44C442980782</key>
+		<dict>
+			<key>ypos</key>
+			<real>250</real>
+		</dict>
+		<key>EBA25B66-BFF8-48F9-82D0-25276AC36D9A</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://kungfudiscomonkey.net</string>
+</dict>
+</plist>
