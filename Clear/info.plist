@@ -92,9 +92,19 @@ tell application "System Events" to set the visible of every process to true
 tell application "Finder"
 	set process_list to the name of every process whose visible is true
 end tell
-repeat with i from 1 to (number of items in process_list)	try		set this_process to item i of the process_list		if this_process is not in white_list then			tell application this_process to quit
-			growl("Quitting " &amp; this_process )		end if	on error		growl("Error quitting " &amp; this_process )	end tryend repeat
-do shell script "source ~/.bash_profile; adium clear"</string>
+repeat with i from 1 to (number of items in process_list)
+	try
+		set this_process to item i of the process_list
+		if this_process is not in white_list then
+			tell application this_process to quit
+			growl("Quitting " &amp; this_process )
+		end if
+	on error
+		growl("Error quitting " &amp; this_process )
+	end try
+end repeat
+do shell script "source ~/.bash_profile; adium clear"
+</string>
 				<key>type</key>
 				<integer>6</integer>
 			</dict>
