@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>net.kungfudiscomonkey.alfred.clear</string>
+	<key>connections</key>
+	<dict>
+		<key>CED57D44-EC9F-480C-9B0D-E9960FD8D5BA</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C78B9565-3B46-4CC4-92AC-F0BBCFB838CA</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Paul Traylor</string>
+	<key>description</key>
+	<string></string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Clear</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>clear</string>
+				<key>subtext</key>
+				<string>Remove all distractions</string>
+				<key>text</key>
+				<string>Clear</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>CED57D44-EC9F-480C-9B0D-E9960FD8D5BA</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>-- Taken from http://stackoverflow.com/questions/495323/quit-all-applications-using-applescript/495346#495346
+
+-- Load our whitelist from a file
+on load_whitelist()
+	set settings_file to do shell script "
+if [ ! -f whitelist.txt ] ; then
+	echo 'Finder' &gt; whitelist.txt
+fi
+cat whitelist.txt
+"
+	set settings to every paragraph of settings_file
+	-- Always make sure Finder is on the white list
+	set settings to settings &amp; {"Finder"}
+	return settings
+end load_whitelist
+set white_list to load_whitelist()
+
+on growl(msg)
+	tell application id "com.Growl.GrowlHelperApp"
+		notify with name "Extension Output" ¬
+			title "Remove Distractions" ¬
+			application name "Alfred" ¬
+			description msg
+	end tell
+end growl
+
+-- Clear Existing Growl Messages First
+tell application "Growl"
+	close all notifications
+	hide rollup
+end tell
+
+tell application "System Events" to set the visible of every process to true
+
+tell application "Finder"
+	set process_list to the name of every process whose visible is true
+end tell
+repeat with i from 1 to (number of items in process_list)	try		set this_process to item i of the process_list		if this_process is not in white_list then			tell application this_process to quit
+			growl("Quitting " &amp; this_process )		end if	on error		growl("Error quitting " &amp; this_process )	end tryend repeat
+do shell script "source ~/.bash_profile; adium clear"</string>
+				<key>type</key>
+				<integer>6</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>C78B9565-3B46-4CC4-92AC-F0BBCFB838CA</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>C78B9565-3B46-4CC4-92AC-F0BBCFB838CA</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>CED57D44-EC9F-480C-9B0D-E9960FD8D5BA</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://kungfudiscomonkey.net</string>
+</dict>
+</plist>
