@@ -15,7 +15,7 @@ extensions = collections.defaultdict(list)
 
 # git-ls-files will let us take advantage of .gitignore to ignore
 # files that we do not want to save in our extension
-for path in subprocess.check_output(['git', 'ls-files']).split():
+for path in subprocess.check_output(['git', 'ls-files']).split('\n'):
     try:
         foldername, filename = path.split('/', 1)
     except ValueError:
