@@ -1,2 +1,6 @@
+# Don't commit our zip archives
+*.alfredworkflow
+
+# Ensure we don't accidently commit our settings
 net.kungfudiscomonkey.alfred.clear/settings.txt
 net.kungfudiscomonkey.alfred.clear/whitelist.txt
