@@ -6,11 +6,66 @@
 	<string>net.kungfudiscomonkey.alfred.clear</string>
 	<key>connections</key>
 	<dict>
+		<key>01E7D50E-2AF7-4571-A4A5-2698B933E3FB</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>6FFF465A-F9CB-4015-B013-4579CDD9A7B6</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>B2CDDF58-2653-4A96-86F4-8063D6EFD650</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>6FFF465A-F9CB-4015-B013-4579CDD9A7B6</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>CED57D44-EC9F-480C-9B0D-E9960FD8D5BA</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>C78B9565-3B46-4CC4-92AC-F0BBCFB838CA</string>
+				<string>D362E917-4A70-4046-ABE4-C810120235F3</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>D362E917-4A70-4046-ABE4-C810120235F3</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>6FFF465A-F9CB-4015-B013-4579CDD9A7B6</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>DDF8E6AB-8E3F-484D-8707-3A8E26BC2B6F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B2CDDF58-2653-4A96-86F4-8063D6EFD650</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>FEEF1171-62FA-4B37-A22D-925F030EA2D8</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>01E7D50E-2AF7-4571-A4A5-2698B933E3FB</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -28,6 +83,49 @@
 	<string>Clear</string>
 	<key>objects</key>
 	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>script</key>
+				<string>from clear import Clear
+Clear().run()</string>
+				<key>type</key>
+				<integer>3</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>D362E917-4A70-4046-ABE4-C810120235F3</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Clear</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>6FFF465A-F9CB-4015-B013-4579CDD9A7B6</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
@@ -53,65 +151,91 @@
 			<key>config</key>
 			<dict>
 				<key>escaping</key>
-				<integer>63</integer>
+				<integer>68</integer>
 				<key>script</key>
-				<string>-- Taken from http://stackoverflow.com/questions/495323/quit-all-applications-using-applescript/495346#495346
-
--- Load our whitelist from a file
-on load_whitelist()
-	set settings_file to do shell script "
-if [ ! -f whitelist.txt ] ; then
-	echo 'Finder' &gt; whitelist.txt
-fi
-cat whitelist.txt
-"
-	set settings to every paragraph of settings_file
-	-- Always make sure Finder is on the white list
-	set settings to settings &amp; {"Finder"}
-	return settings
-end load_whitelist
-set white_list to load_whitelist()
-
-on growl(msg)
-	tell application id "com.Growl.GrowlHelperApp"
-		notify with name "Extension Output" ¬
-			title "Remove Distractions" ¬
-			application name "Alfred" ¬
-			description msg
-	end tell
-end growl
-
--- Clear Existing Growl Messages First
-tell application "Growl"
-	close all notifications
-	hide rollup
-end tell
-
-tell application "System Events" to set the visible of every process to true
-
-tell application "Finder"
-	set process_list to the name of every process whose visible is true
-end tell
-repeat with i from 1 to (number of items in process_list)
-	try
-		set this_process to item i of the process_list
-		if this_process is not in white_list then
-			tell application this_process to quit
-			growl("Quitting " &amp; this_process )
-		end if
-	on error
-		growl("Error quitting " &amp; this_process )
-	end try
-end repeat
-do shell script "source ~/.bash_profile; adium clear"
-</string>
+				<string>from clear import Clear
+Clear().add_whitelist("{query}")</string>
 				<key>type</key>
-				<integer>6</integer>
+				<integer>3</integer>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>C78B9565-3B46-4CC4-92AC-F0BBCFB838CA</string>
+			<string>01E7D50E-2AF7-4571-A4A5-2698B933E3FB</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>keyword</key>
+				<string>whitelist</string>
+				<key>runningsubtext</key>
+				<string>Checking running processes</string>
+				<key>script</key>
+				<string>from clear import Clear
+c = Clear().xml()</string>
+				<key>title</key>
+				<string>Whitelist an Application</string>
+				<key>type</key>
+				<integer>3</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>FEEF1171-62FA-4B37-A22D-925F030EA2D8</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>keyword</key>
+				<string>blacklist</string>
+				<key>runningsubtext</key>
+				<string>Checking running processes</string>
+				<key>script</key>
+				<string>from clear import Clear
+c = Clear().xml()</string>
+				<key>title</key>
+				<string>Blacklist an Application</string>
+				<key>type</key>
+				<integer>3</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>DDF8E6AB-8E3F-484D-8707-3A8E26BC2B6F</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>from clear import Clear
+Clear().del_whitelist("{query}")</string>
+				<key>type</key>
+				<integer>3</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>B2CDDF58-2653-4A96-86F4-8063D6EFD650</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -120,15 +244,40 @@ do shell script "source ~/.bash_profile; adium clear"
 	<string></string>
 	<key>uidata</key>
 	<dict>
-		<key>C78B9565-3B46-4CC4-92AC-F0BBCFB838CA</key>
+		<key>01E7D50E-2AF7-4571-A4A5-2698B933E3FB</key>
+		<dict>
+			<key>ypos</key>
+			<real>120</real>
+		</dict>
+		<key>6FFF465A-F9CB-4015-B013-4579CDD9A7B6</key>
 		<dict>
 			<key>ypos</key>
 			<real>10</real>
+		</dict>
+		<key>B2CDDF58-2653-4A96-86F4-8063D6EFD650</key>
+		<dict>
+			<key>ypos</key>
+			<real>230</real>
 		</dict>
 		<key>CED57D44-EC9F-480C-9B0D-E9960FD8D5BA</key>
 		<dict>
 			<key>ypos</key>
 			<real>10</real>
+		</dict>
+		<key>D362E917-4A70-4046-ABE4-C810120235F3</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>DDF8E6AB-8E3F-484D-8707-3A8E26BC2B6F</key>
+		<dict>
+			<key>ypos</key>
+			<real>230</real>
+		</dict>
+		<key>FEEF1171-62FA-4B37-A22D-925F030EA2D8</key>
+		<dict>
+			<key>ypos</key>
+			<real>120</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
