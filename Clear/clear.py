@@ -4,6 +4,7 @@ import subprocess
 
 logger = logging.getLogger(__name__)
 
+BASE = os.path.dirname(__file__)
 SETTINGS = os.path.join(
     os.path.expanduser('~'),
     'Library',
@@ -13,9 +14,23 @@ SETTINGS = os.path.join(
     'net.kungfudiscomonkey.alfred.clear',
 )
 WHITELIST = os.path.join(SETTINGS, 'whitelist.txt')
+try:
+    with open(os.path.join(BASE, 'icon.png')) as fp:
+        ICON = fp.read()
+except:
+    ICON = None
+
+try:
+    from gntp.config import mini
+except:
+    def mini(message, **kwargs):
+        print message
 
 
 class Clear(object):
+    def message(self, message):
+        mini(message, applicationName='Clear', applicationIcon=ICON)
+
     def _run(self, script):
         p = subprocess.Popen(
             ['osascript'],
@@ -43,7 +58,7 @@ class Clear(object):
         return processes
 
     def kill(self, app):
-        print 'Killing', app
+        mini('Killing {0}'.format(app))
         return self._run("""
             tell application "{0}" to quit
             """.format(app))
