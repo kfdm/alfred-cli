@@ -6,7 +6,7 @@ import zipfile
 import collections
 
 
-PROJECT_ROOT = os.path.dirname(__file__)
+PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 # Do everything relative to the project root
 os.chdir(PROJECT_ROOT)
