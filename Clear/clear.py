@@ -1,6 +1,8 @@
 import logging
 import os
 import subprocess
+import sys
+import workflow
 
 logger = logging.getLogger(__name__)
 
@@ -45,9 +47,40 @@ class Clear(object):
 
         return out.strip()
 
-    def _write(self, whitelist):
-        with open(WHITELIST, 'w') as fp:
-            fp.write('\n'.join(whitelist))
+    def __call__(self, wf):
+        if 'whitelist' not in wf.settings:
+            wf.settings['whitelist'] = ['Finder']
+
+        if wf.args[0] == 'whitelist':
+            return self.add_whitelist(wf, wf.args[1])
+        elif wf.args[0] == 'blacklist':
+            return self.del_whitelist(wf, wf.args[1])
+        elif wf.args[0] == 'run':
+            return self.run(wf)
+        elif wf.args[0] == 'list':
+            for item in self.current_processes():
+                icon = workflow.ICON_BURN \
+                    if item in wf.settings['whitelist'] \
+                    else workflow.ICON_FAVORITE
+                wf.add_item(item, arg=item, valid=True, icon=icon)
+            wf.send_feedback()
+        else:
+            wf.add_item('No items', icon=workflow.ICON_WARNING)
+            wf.send_feedback()
+
+    def add_whitelist(self, wf, item):
+        if item in wf.settings['whitelist']:
+            print item, 'already whitelisted'
+            return
+        wf.settings['whitelist'].append(item)
+        print 'Whitelisted', item
+        wf.settings.save()
+
+    def del_whitelist(self, wf, item):
+        if item in wf.settings['whitelist']:
+            wf.settings['whitelist'].remove(item)
+            print 'Blacklisted', item
+            wf.settings.save()
 
     def current_processes(self):
         processes = set(self._run("""
@@ -63,52 +96,16 @@ class Clear(object):
             tell application "{0}" to quit
             """.format(app))
 
-    def get_whitelist(self):
-        if not os.path.exists(WHITELIST):
-            return set(['Finder'])
-        with open(WHITELIST) as fp:
-            whitelist = set(fp.read().strip().split('\n'))
-            whitelist.add('Finder')
-        return whitelist
-
-    def add_whitelist(self, value):
-        print 'Adding', value, 'to whitelist'
-        if not os.path.exists(SETTINGS):
-            logger.info('Creating settings directory: %s', SETTINGS)
-            os.makedirs(SETTINGS)
-        whitelist = self.get_whitelist()
-        whitelist.add(value)
-        self._write(whitelist)
-
-    def del_whitelist(self, value):
-        print 'Removing', value, 'from whitelist'
-        if not os.path.exists(SETTINGS):
-            return
-        whitelist = self.get_whitelist()
-        whitelist.remove(value)
-        self._write(whitelist)
-
-    def run(self):
-        whitelist = self.get_whitelist()
+    def run(self, wf):
+        whitelist = wf.settings['whitelist']
         processes = self.current_processes()
-        logger.debug('Using whitelist: %s', whitelist)
-        logger.debug('Currently running: %s', processes)
+        wf.logger.debug('Using whitelist: %s', whitelist)
+        wf.logger.debug('Currently running: %s', processes)
         for app in processes:
             if app in whitelist:
-                logger.info('Skipping %s', app)
+                wf.logger.info('Skipping %s', app)
             else:
                 self.kill(app)
 
-    def xml(self):
-        print '<?xml version="1.0"?>'
-        print '<items>'
-        for item in self.current_processes():
-            print '<item uid="{0}" arg="{1}">'.format(item, item)
-            print '<title>{0}</title>'.format(item)
-            print '</item>'
-        print '</items>'
-
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
-    c = Clear()
-    c.run()
+    sys.exit(workflow.Workflow().run(Clear()))

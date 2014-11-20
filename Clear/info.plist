@@ -89,10 +89,9 @@
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
-				<string>from clear import Clear
-Clear().run()</string>
+				<string>python clear.py run</string>
 				<key>type</key>
-				<integer>3</integer>
+				<integer>0</integer>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
@@ -153,10 +152,9 @@ Clear().run()</string>
 				<key>escaping</key>
 				<integer>68</integer>
 				<key>script</key>
-				<string>from clear import Clear
-Clear().add_whitelist("{query}")</string>
+				<string>python clear.py whitelist "{query}"</string>
 				<key>type</key>
-				<integer>3</integer>
+				<integer>0</integer>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
@@ -177,12 +175,11 @@ Clear().add_whitelist("{query}")</string>
 				<key>runningsubtext</key>
 				<string>Checking running processes</string>
 				<key>script</key>
-				<string>from clear import Clear
-c = Clear().xml()</string>
+				<string>python clear.py list</string>
 				<key>title</key>
 				<string>Whitelist an Application</string>
 				<key>type</key>
-				<integer>3</integer>
+				<integer>0</integer>
 				<key>withspace</key>
 				<false/>
 			</dict>
@@ -205,12 +202,11 @@ c = Clear().xml()</string>
 				<key>runningsubtext</key>
 				<string>Checking running processes</string>
 				<key>script</key>
-				<string>from clear import Clear
-c = Clear().xml()</string>
+				<string>python clear.py list</string>
 				<key>title</key>
 				<string>Blacklist an Application</string>
 				<key>type</key>
-				<integer>3</integer>
+				<integer>0</integer>
 				<key>withspace</key>
 				<false/>
 			</dict>
@@ -227,10 +223,9 @@ c = Clear().xml()</string>
 				<key>escaping</key>
 				<integer>68</integer>
 				<key>script</key>
-				<string>from clear import Clear
-Clear().del_whitelist("{query}")</string>
+				<string>python clear.py blacklist "{query}"</string>
 				<key>type</key>
-				<integer>3</integer>
+				<integer>0</integer>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
