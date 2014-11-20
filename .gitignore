@@ -4,3 +4,7 @@
 # Ensure we don't accidently commit our settings
 Clear/settings.txt
 Clear/whitelist.txt
+
+# Python Things
+*.egg-info
+*.pyc
