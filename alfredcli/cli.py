@@ -75,3 +75,17 @@ def list():
         print 'URL', plist.get('webaddress')
         print 'Path', path
         print 
+
+
+@main.command()
+def info():
+    import pprint
+    plist = plistlib.readPlist('info.plist')
+    print 'Name:', plist.get('name')
+    print 'Description', plist.get('description')
+    print 'BundleID', plist.get('bundleid')
+    print 'Category', plist.get('category')
+    print 'Creator', plist.get('createdby')
+    print 'URL', plist.get('webaddress')
+    pprint.pprint(plist)
+    print 
