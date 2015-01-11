@@ -39,7 +39,7 @@ def build():
 
 @main.command()
 @click.pass_context
-def open(ctx):
+def install(ctx):
     '''Open Alfred Extension in Alfred'''
     ctx.forward(build)
     click.launch(archive_path)
