@@ -8,6 +8,10 @@ import click
 
 logger = logging.getLogger(__name__)
 
+project_root = os.path.realpath('.')
+project_name = os.path.basename(project_root)
+archive_path = os.path.join(project_root, project_name + '.alfredworkflow')
+
 
 @click.group()
 @click.option('-v', '--verbose', count=True)
@@ -17,10 +21,7 @@ def main(verbose):
 
 @main.command()
 def build():
-    project_root = os.path.realpath('.')
-    project_name = os.path.basename(project_root)
-    archive_path = os.path.join(project_root, project_name + '.alfredworkflow')
-
+    '''Build Alfred Extension'''
     logger.info('Reading %s', project_root)
     logger.info('Building %s', project_name)
 
@@ -32,3 +33,11 @@ def build():
             zfp.write(path, os.path.basename(path))
 
     click.echo('Built workflow ' + archive_path)
+
+
+@main.command()
+@click.pass_context
+def open(ctx):
+    '''Open Alfred Extension in Alfred'''
+    ctx.forward(build)
+    click.launch(archive_path)
