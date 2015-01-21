@@ -1,4 +1,4 @@
-import glob
+import shutil
 import logging
 import os
 import plistlib
@@ -90,7 +90,18 @@ def import_(bundleid):
     else:
         click.fail('Unable to find bundle id: {0}'.format(bundleid))
 
-    click.echo('Importing {0} from {1}'.format(bundleid, path))
+    source_dir = os.path.dirname(path)
+    dest_dir = os.getcwd()
+    click.echo('Importing {0} from {1} to {2}'.format(bundleid, source_dir, dest_dir))
+
+    for root, dirs, files in os.walk(source_dir):
+        for f in files:
+            if f != 'info.plist':
+               continue
+            source_path = os.path.join(root, f)
+            dest_path = os.path.join(dest_dir, f)
+            click.echo('Copying {0} to {1}'.format(source_path, dest_path))
+            shutil.copy(source_path, dest_path)
 
 
 @main.command()
