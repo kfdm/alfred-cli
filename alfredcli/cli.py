@@ -7,6 +7,8 @@ import zipfile
 
 import click
 
+import alfredcli.util
+
 
 logger = logging.getLogger(__name__)
 
@@ -67,8 +69,7 @@ def list(full):
     )
     logger.info('Search Glob: %s', workflow_glob)
 
-    for path in glob.iglob(workflow_glob):
-        plist = plistlib.readPlist(path)
+    for path, plist in alfredcli.util.workflows():
         print plist.get('name'),
         print '[', plist.get('bundleid'), ']'
         if full:
@@ -77,7 +78,8 @@ def list(full):
             print 'Creator', plist.get('createdby')
             print 'URL', plist.get('webaddress')
             print 'Path', path
-            print 
+            print
+
 
 
 @main.command()
