@@ -46,8 +46,10 @@ def install(ctx):
 
 
 @main.command()
-def list():
+@click.option('-f', '--full', is_flag=True)
+def list(full):
     click.echo('Listing alfred extensions')
+    click.echo('-' * 80)
 
     sync_folder = subprocess.check_output([
         'defaults',
@@ -67,14 +69,15 @@ def list():
 
     for path in glob.iglob(workflow_glob):
         plist = plistlib.readPlist(path)
-        print 'Name:', plist.get('name')
-        print 'Description', plist.get('description')
-        print 'BundleID', plist.get('bundleid')
-        print 'Category', plist.get('category')
-        print 'Creator', plist.get('createdby')
-        print 'URL', plist.get('webaddress')
-        print 'Path', path
-        print 
+        print plist.get('name'),
+        print '[', plist.get('bundleid'), ']'
+        if full:
+            print 'Description', plist.get('description')
+            print 'Category', plist.get('category')
+            print 'Creator', plist.get('createdby')
+            print 'URL', plist.get('webaddress')
+            print 'Path', path
+            print 
 
 
 @main.command()
