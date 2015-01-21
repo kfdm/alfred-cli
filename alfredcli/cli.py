@@ -81,6 +81,17 @@ def list(full):
             print
 
 
+@main.command(name='import')
+@click.argument('bundleid')
+def import_(bundleid):
+    for path, plist in alfredcli.util.workflows():
+        if plist.get('bundleid') == bundleid:
+            break
+    else:
+        click.fail('Unable to find bundle id: {0}'.format(bundleid))
+
+    click.echo('Importing {0} from {1}'.format(bundleid, path))
+
 
 @main.command()
 def info():
