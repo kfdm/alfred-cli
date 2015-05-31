@@ -28,12 +28,13 @@ def build():
     logger.info('Reading %s', project_root)
     logger.info('Building %s', project_name)
 
-    with zipfile.ZipFile(archive_path, 'a') as zfp:
+    os.chdir(project_root)
+    with zipfile.ZipFile(archive_path, 'w') as zfp:
         # git-ls-files will let us take advantage of .gitignore to ignore
         # files that we do not want to save in our extension
         for path in subprocess.check_output(['git', 'ls-files']).strip().split('\n'):
             logger.info('Adding %s', path)
-            zfp.write(path, os.path.basename(path))
+            zfp.write(path)
 
     click.echo('Built workflow ' + archive_path)
 
@@ -95,8 +96,8 @@ def import_(bundleid):
 
     for root, dirs, files in os.walk(source_dir):
         for f in files:
-            if f != 'info.plist':
-               continue
+            #if f != 'info.plist':
+            #   continue
             source_path = os.path.join(root, f)
             dest_path = os.path.join(dest_dir, f)
             click.echo('Copying {0} to {1}'.format(source_path, dest_path))
