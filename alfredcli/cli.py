@@ -1,7 +1,6 @@
 import shutil
 import logging
 import os
-import plistlib
 import subprocess
 import zipfile
 
@@ -107,12 +106,30 @@ def import_(bundleid):
 @main.command()
 def info():
     import pprint
-    plist = plistlib.readPlist('info.plist')
+    plist = alfredcli.util.workflow_plist()
     print 'Name:', plist.get('name')
     print 'Description', plist.get('description')
     print 'BundleID', plist.get('bundleid')
     print 'Category', plist.get('category')
     print 'Creator', plist.get('createdby')
     print 'URL', plist.get('webaddress')
+    print 'Cache', alfredcli.util.cache_dir(plist.get('bundleid'))
+    print 'Data', alfredcli.util.data_dir(plist.get('bundleid'))
     pprint.pprint(plist)
-    print 
+    print
+
+
+@main.command()
+def helpers():
+    '''
+    Install some helpers to make developing workflows easier
+    '''
+    plist = alfredcli.util.workflow_plist()
+    links = {
+        'cache': alfredcli.util.cache_dir(plist.get('bundleid')),
+        'data': alfredcli.util.data_dir(plist.get('bundleid')),
+    }
+    for dest, target in links.iteritems():
+        if not os.path.exists(dest):
+            logging.info('Linking %s to %s', target, dest)
+            os.symlink(target, dest)

@@ -26,3 +26,29 @@ def workflows():
 
     for path in glob.iglob(workflow_glob):
         yield path, plistlib.readPlist(path)
+
+
+def data_dir(bundleid):
+    return os.path.join(
+        os.path.expanduser('~'),
+        'Library',
+        'Application Support',
+        'Alfred 2',
+        'Workflow Data',
+        bundleid
+    )
+
+
+def cache_dir(bundleid):
+    return os.path.join(
+        os.path.expanduser('~'),
+        'Library',
+        'Caches',
+        'com.runningwithcrayons.Alfred-2',
+        'Workflow Data',
+        bundleid
+    )
+
+
+def workflow_plist():
+    return plistlib.readPlist('info.plist')
